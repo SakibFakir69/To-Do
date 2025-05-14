@@ -1,17 +1,19 @@
 
 
-import { useState } from 'react'
+
+
+
+import React from 'react'
+import TaskBoard from './components/TaskBoard'
+
 
 function App() {
 
-
- 
-
   return (
     <div>
-      
+      <TaskBoard/>
 
-      
+
     </div>
   )
 }
