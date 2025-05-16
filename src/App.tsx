@@ -1,48 +1,29 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useMemo, useReducer, useState } from "react";
 import TaskBoard from "./components/TaskBoard";
 
 function App() {
-  // usestate hook isa a react functona; component hook
-  /// manage state in compnents
-
-  type Action =
-    | { type: "increment" }
-    | { type: "decriment" }
-    | { type: "hidden" };
-  type State = {count:number} | {hidden:boolean};
+  
+  const [ active , setactive ] = useState<boolean>(!true);
 
 
-  const reducr = (state: State, action: Action):State => {
-    switch (action.type) {
+  const btnTogle =()=>{
+    
+    setactive(true)
+  }
+  console.log(active);
 
-      case "increment":
-        return { ...state, count: state.count + 1 };
+  return (
+    <div>
 
-      case "decriment":
-        return { ...state, count: state - 1 };
+      <button onClick={btnTogle}>click me</button>
+      
 
-      case "hidden":
-        return { ...state, hidden: state.hidden };
-      default:
-        return state;
-    }
 
-  };
 
-  const [state, dispatch] = useReducer(
-    () => reducr,
 
-    {
-      count: 0,
-      hidden: false,
-    }
+
+    </div>
   );
-
-  return <div>
-    {state.count}
-
-
-  </div>;
 }
 
 export default App;
