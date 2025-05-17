@@ -1,21 +1,44 @@
-import React, { useEffect, useMemo, useReducer, useState } from "react";
+import React, { useEffect, useMemo, useReducer, useRef, useState } from "react";
 import TaskBoard from "./components/TaskBoard";
 
 function App() {
-  
-  const [ active , setactive ] = useState<boolean>(!true);
+
+  // s -> one class one work
+
+  const inputRef = useRef<HTMLHeadElement | HTMLBodyElement>(null);
 
 
-  const btnTogle =()=>{
+
+
+  useEffect(()=>{
+    console.log("render");
+
+    if(inputRef.current)
+    {
+      inputRef.current.innerHTML='<h1>how are you</h1>'
+      inputRef.current.blur();
+      inputRef.current.style.background="red"
+      inputRef.current.append("ok")
     
-    setactive(true)
-  }
-  console.log(active);
+    }
+
+
+  },[])
+
+  
+
+  
+
+  
+  
+ 
+  
 
   return (
     <div>
 
-      <button onClick={btnTogle}>click me</button>
+      <h2 ref={inputRef}>Hello</h2>
+
       
 
 
