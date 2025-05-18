@@ -1,43 +1,35 @@
-import React, { useEffect, useMemo, useReducer, useRef, useState } from "react";
-import TaskBoard from "./components/TaskBoard";
+import React, { Children, createContext, useEffect, useMemo, useReducer, useRef, useState } from "react";
+import ShowData from "./shared/ShowData";
+
+interface myProviervalue{
+  count:number,
+}
+
+export const myProvider = createContext< myProviervalue | null >(null);
 
 function App() {
 
-  // s -> one class one work
-
-  const inputRef = useRef<HTMLHeadElement | HTMLBodyElement>(null);
-
-
-
+  const [ count , setcount ] = useState<number>(1045);
 
   useEffect(()=>{
-    console.log("render");
-
-    if(inputRef.current)
-    {
-      inputRef.current.innerHTML='<h1>how are you</h1>'
-      inputRef.current.blur();
-      inputRef.current.style.background="red"
-      inputRef.current.append("ok")
-    
-    }
-
 
   },[])
+  // empty dencies
+  //react.fc<{number:number}} | null>
 
   
 
-  
 
-  
-  
- 
-  
 
   return (
     <div>
+     
 
-      <h2 ref={inputRef}>Hello</h2>
+      <myProvider.Provider value={{count}}>
+         <ShowData data={10} count={10}/>
+      </myProvider.Provider>
+
+
 
       
 
