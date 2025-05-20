@@ -1,42 +1,52 @@
-import React, { Children, createContext, useEffect, useMemo, useReducer, useRef, useState } from "react";
+import React, {
+  Children,
+  createContext,
+  useCallback,
+  useEffect,
+  useMemo,
+  useReducer,
+  useRef,
+  useState,
+} from "react";
 import ShowData from "./shared/ShowData";
 
-interface myProviervalue{
-  count:number,
-}
-
-export const myProvider = createContext< myProviervalue | null >(null);
-
 function App() {
+  const [counter, setcounter] = useState<number>(0);
 
-  const [ count , setcount ] = useState<number>(1045);
+  // reference 
 
-  useEffect(()=>{
+ 
 
-  },[])
-  // empty dencies
-  //react.fc<{number:number}} | null>
+  const [value, dispatch] = useMemo(
+    function () {
+      setcounter(counter + 1);
+    },
+    [counter]
+  );
 
-  
+  const btnClick = useCallback(() => {
+    setcounter(counter + 1);
+  }, [counter]);
+
+   useEffect(() => {
+    // update value if render
+    setcounter(counter + 1);
+  }, [btnClick]);
+
+
+  // callback use for function re creation 
+  // use memeo for memorize 
 
 
 
   return (
     <div>
-     
+      <p>Count: {counter} </p>
+      <button onClick={btnClick}>Update</button>
 
-      <myProvider.Provider value={{count}}>
-         <ShowData data={10} count={10}/>
-      </myProvider.Provider>
+      {/* components */}
 
-
-
-      
-
-
-
-
-
+      <ShowData clickme={btnClick} />
     </div>
   );
 }

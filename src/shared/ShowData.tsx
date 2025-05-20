@@ -1,31 +1,34 @@
 
 
 
+import React, { FC } from 'react'
 
-import React, { useContext } from 'react'
-import { myProvider } from '../App'
+// react prevent re- render use react.memeo
+// if passin props working re-render
 
-interface showDataProps{
-  data:number,
-  count:number,
+interface User{
+
+  clickme: ()=> void;
+
+
 }
-
-const  ShowData:React.FC<showDataProps>=({})=> {
-
-  const context = useContext(myProvider);
+const  ShowData : React.FC<User> =React.memo(
+  ({clickme})=> {
 
 
+  console.log("Re render again , show data ")
 
- 
-    
   return (
-    <div>
-      <h2>{context?.count}</h2>
-      
+    <div>ShowData
+
+      <button onClick={clickme}>{'btnclick'}</button>
+
 
 
     </div>
   )
 }
 
-export default ShowData
+)
+
+export default ShowData;
