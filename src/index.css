@@ -5,3 +5,13 @@
 data.theme{
     background-color: white;
 }
+button{
+    height: 200px;
+    width: 200px;
+    background-color: red;
+}
+
+input{
+    height: 50vh;
+    width: 70%;
+}

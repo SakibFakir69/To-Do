@@ -1,52 +1,57 @@
-import React, {
-  Children,
-  createContext,
-  useCallback,
-  useEffect,
-  useMemo,
-  useReducer,
-  useRef,
-  useState,
-} from "react";
-import ShowData from "./shared/ShowData";
+import React, { Children, useEffect, useRef, useState } from "react";
+
+import { EditorContent, useEditor } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import Bold from "@tiptap/extension-bold";
 
 function App() {
-  const [counter, setcounter] = useState<number>(0);
 
-  // reference 
+  const useText = useRef<null>(null);
 
- 
-
-  const [value, dispatch] = useMemo(
-    function () {
-      setcounter(counter + 1);
-    },
-    [counter]
-  );
-
-  const btnClick = useCallback(() => {
-    setcounter(counter + 1);
-  }, [counter]);
-
-   useEffect(() => {
-    // update value if render
-    setcounter(counter + 1);
-  }, [btnClick]);
+  const  [ text , settext ] = useState<string>('');
 
 
-  // callback use for function re creation 
-  // use memeo for memorize 
+  const editor = useEditor({
+     extensions: [
+      StarterKit.configure({
+        bold: false, // disable default bold to use custom one
+      }),
+      Bold,
+    ],
+    content: `
 
+   
+      `,
+  });
 
+  useEffect(()=>{
+
+    if(editor && text){
+      editor.commands.setContent(text);
+    }
+
+  },[text,editor])
+
+  if (!editor) {
+    return null;
+  }
 
   return (
     <div>
-      <p>Count: {counter} </p>
-      <button onClick={btnClick}>Update</button>
+      <button
+      
+      
+        onClick={() => editor.chain().focus().toggleBold().run()}
+        className={editor.isActive("bold") ? "is-active" : ""}
+      >
+        Toggle bold
+      </button>
 
-      {/* components */}
+      <input type="text"  onChange={(e)=> settext(e.target.value)} placeholder="Enter your text"/>
 
-      <ShowData clickme={btnClick} />
+       <EditorContent editor={editor} />
+
+     
     </div>
   );
 }
