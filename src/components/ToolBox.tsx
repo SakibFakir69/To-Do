@@ -14,10 +14,10 @@ function ToolBox({ editor }: toolBoxprops) {
   }
 
   return (
-    <div className="fixed w-full -mt-20 bg-green-200  backdrop-blur-3xl">
-      <nav>
+    <div className="fixed w-full -mt-20 py-2 bg-green-200  backdrop-blur-3xl">
+      <nav className="flex gap-x-3">
         <div className="control-group">
-          <div className="button-group p-5 flex gap-x-2">
+          <div className="button-group ">
             <button
               className="btn"
               onClick={() => editor.chain().focus().undo().run()}
@@ -37,93 +37,78 @@ function ToolBox({ editor }: toolBoxprops) {
 
         <div className="control-group">
           <div className="button-group">
-          
-
-            <button
-              onClick={() => editor.chain().focus().setColor("#958DF1").run()}
-              className={
-                editor.isActive("textStyle", { color: "#958DF1" })
-                  ? "is-active"
-                  : ""
-              }
-              data-testid="setPurple"
-            >
-              Purple
-            </button>
-            <button
-              onClick={() => editor.chain().focus().setColor("#F98181").run()}
-              className={
-                editor.isActive("textStyle", { color: "#F98181" })
-                  ? "is-active"
-                  : ""
-              }
-              data-testid="setRed"
-            >
-              Red
-            </button>
-            <button
-              onClick={() => editor.chain().focus().setColor("#FBBC88").run()}
-              className={
-                editor.isActive("textStyle", { color: "#FBBC88" })
-                  ? "is-active"
-                  : ""
-              }
-              data-testid="setOrange"
-            >
-              Orange
-            </button>
-            <button
-              onClick={() => editor.chain().focus().setColor("#FAF594").run()}
-              className={
-                editor.isActive("textStyle", { color: "#FAF594" })
-                  ? "is-active"
-                  : ""
-              }
-              data-testid="setYellow"
-            >
-              Yellow
-            </button>
-            <button
-              onClick={() => editor.chain().focus().setColor("#70CFF8").run()}
-              className={
-                editor.isActive("textStyle", { color: "#70CFF8" })
-                  ? "is-active"
-                  : ""
-              }
-              data-testid="setBlue"
-            >
-              Blue
-            </button>
-            <button
-              onClick={() => editor.chain().focus().setColor("#94FADB").run()}
-              className={
-                editor.isActive("textStyle", { color: "#94FADB" })
-                  ? "is-active"
-                  : ""
-              }
-              data-testid="setTeal"
-            >
-              Teal
-            </button>
-            <button
-              onClick={() => editor.chain().focus().setColor("#B9F18D").run()}
-              className={
-                editor.isActive("textStyle", { color: "#B9F18D" })
-                  ? "is-active"
-                  : ""
-              }
-              data-testid="setGreen"
-            >
-              Green
-            </button>
-            <button
-              onClick={() => editor.chain().focus().unsetColor().run()}
-              data-testid="unsetColor"
-            >
-              Unset color
-            </button>
+            <div className="control-group">
+              <div className="button-group">
+                <select
+                  name="color"
+                  onChange={(e) => {
+                    const color =( e.target as HTMLSelectElement).value ;
+                    console.log(color)
+                    if (color === "unset") {
+                      editor.chain().focus().unsetColor().run();
+                    } else {
+                      editor.chain().focus().setColor(color).run();
+                    }
+                  }}
+                  className="p-1 rounded"
+                  defaultValue=""
+                >
+                  <option value="" disabled>
+                    Select Color
+                  </option>
+                  <option value="#958DF1">Purple</option>
+                  <option value="#F98181">Red</option>
+                  <option value="#FBBC88">Orange</option>
+                  <option value="#FAF594">Yellow</option>
+                  <option value="#70CFF8">Blue</option>
+                  <option value="#94FADB">Teal</option>
+                  <option value="#B9F18D">Green</option>
+                  <option value="unset">Unset Color</option>
+                </select>
+              </div>
+            </div>
           </div>
         </div>
+
+        {/* bold */}
+        <div className="control-group">
+          <div className="button-group">
+            <button
+              onClick={() => editor.chain().focus().toggleBold().run()}
+              className={editor.isActive("bold") ? "is-active" : ""}
+            >
+               bold
+            </button>
+
+           
+          </div>
+        </div>
+
+
+        <div className="control-group">
+        <div className="button-group">
+          <button
+            onClick={() => editor.chain().focus().toggleHighlight().run()}
+            className={editor.isActive('highlight') ? 'is-active' : ''}
+          >
+            Toggle highlight
+          </button>
+          
+          
+        </div>
+      </div>
+        <div className="control-group">
+        <div className="button-group">
+          <button
+            onClick={() => editor.chain().focus().toggleItalic().run()}
+            className={editor.isActive('italic') ? 'is-active' : ''}
+          >
+            Toggle italic
+          </button>
+          
+        </div>
+      </div>
+
       </nav>
     </div>
   );
