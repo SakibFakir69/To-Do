@@ -3,12 +3,9 @@
 
 
 data.theme{
-    background-color: white;
+    background-color: rgb(206, 198, 198);
 }
-button{
-    
-    background-color: red;
-}
+
 
 input{
     height: 50vh;
